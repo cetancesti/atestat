@@ -1,335 +1,350 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8">
-<title>Ce Tanc Ești</title>
+    <meta charset="UTF-8">
+    <title>Ce Tanc Ești</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Inter:wght@300;400;500&display=swap');
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Inter:wght@300;400;500&display=swap');
 
-body{
-margin:0;
-font-family:Inter;
-background:black;
-color:white;
-overflow:hidden;
-}
+        body {
+            margin: 0;
+            font-family: Inter, sans-serif;
+            background: black;
+            color: white;
+            /* Am scos overflow:hidden pentru a permite scroll-ul pe paginile cu mult text */
+            overflow-y: auto;
+            min-height: 100vh;
+        }
 
-#bgVideo{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-object-fit:cover;
-opacity:0.25;
-z-index:-3;
-filter:contrast(1.3) brightness(0.6);
-}
+        #bgVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.25;
+            z-index: -3;
+            filter: contrast(1.3) brightness(0.6);
+        }
 
-.overlay{
-position:fixed;
-inset:0;
-background:radial-gradient(circle at top, rgba(224,184,76,0.2), black);
-z-index:-2;
-}
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(224,184,76,0.2), black);
+            z-index: -2;
+        }
 
-.p{
-position:fixed;
-width:2px;
-height:2px;
-background:#e0b84c;
-opacity:0.5;
-border-radius:50%;
-animation:float 10s linear infinite;
-}
+        .p {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: #e0b84c;
+            opacity: 0.5;
+            border-radius: 50%;
+            animation: float 10s linear infinite;
+            pointer-events: none;
+        }
 
-@keyframes float{
-from{transform:translateY(100vh);}
-to{transform:translateY(-10vh);}
-}
+        @keyframes float {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-10vh); }
+        }
 
-.container{
-max-width:700px;
-margin:auto;
-padding:20px;
-text-align:center;
-}
+        /* Centrarea verticală și orizontală a conținutului */
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+        }
 
-h1{
-font-family:Oswald;
-font-size:60px;
-background:linear-gradient(90deg,#e0b84c,#fff);
--webkit-background-clip:text;
-color:transparent;
-}
+        h1 {
+            font-family: Oswald;
+            font-size: 60px;
+            background: linear-gradient(90deg, #e0b84c, #fff);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
 
-.card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-padding:20px;
-border-radius:16px;
-backdrop-filter:blur(12px);
-}
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            margin-bottom: 20px;
+        }
 
-button{
-width:100%;
-padding:14px;
-margin-top:10px;
-border-radius:12px;
-border:1px solid rgba(255,255,255,0.1);
-background:rgba(255,255,255,0.05);
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+        }
 
-button:hover{
-background:#e0b84c;
-color:black;
-transform:scale(1.02);
-}
+        button:hover {
+            background: #e0b84c;
+            color: black;
+            transform: scale(1.02);
+        }
 
-.hidden{display:none;}
+        .hidden { display: none !important; }
 
-.barWrap{
-height:6px;
-background:#222;
-border-radius:10px;
-overflow:hidden;
-margin-bottom:20px;
-}
-.bar{
-height:100%;
-background:#e0b84c;
-width:0%;
-transition:0.3s;
-}
+        .barWrap {
+            height: 6px;
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
 
-.small{
-letter-spacing:0.3em;
-font-size:12px;
-color:#e0b84c;
-text-transform:uppercase;
-margin-bottom:10px;
-}
+        .bar {
+            height: 100%;
+            background: #e0b84c;
+            width: 0%;
+            transition: 0.3s;
+        }
 
-.title{
-font-family:Oswald;
-font-size:42px;
-text-transform:uppercase;
-margin:10px 0;
-}
+        .small {
+            letter-spacing: 0.3em;
+            font-size: 12px;
+            color: #e0b84c;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
 
-.quote{
-font-style:italic;
-opacity:0.8;
-margin-bottom:10px;
-}
+        .title {
+            font-family: Oswald;
+            font-size: 42px;
+            text-transform: uppercase;
+            margin: 10px 0;
+        }
 
-.country{
-opacity:0.5;
-letter-spacing:0.2em;
-font-size:12px;
-text-transform:uppercase;
-}
+        .quote {
+            font-style: italic;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
 
-.long-text{
-margin-top:20px;
-font-size:16px;
-line-height:1.7;
-opacity:0.55;
-max-width:600px;
-margin-left:auto;
-margin-right:auto;
-border-top:1px solid rgba(255,255,255,0.08);
-padding-top:15px;
-color:rgba(255,255,255,0.75);
-text-shadow:0 0 10px rgba(0,0,0,0.6);
-}
+        .country {
+            opacity: 0.5;
+            letter-spacing: 0.2em;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
 
-.profiles{
-display:flex;
-justify-content:center;
-gap:25px;
-margin-top:30px;
-}
+        .long-text {
+            margin-top: 20px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            text-align: justify;
+        }
 
-.profile{
-width:85px;
-height:85px;
-border-radius:50%;
-overflow:hidden;
-border:2px solid rgba(255,255,255,0.2);
-transition:0.3s;
-}
+        .profiles {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
 
-.profile img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
+        .profile {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+        }
 
-.profile:hover{
-transform:scale(1.15);
-border-color:#e0b84c;
-box-shadow:0 0 25px rgba(224,184,76,0.8);
-}
-</style>
+        .profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile:hover {
+            transform: scale(1.15);
+            border-color: #e0b84c;
+            box-shadow: 0 0 25px rgba(224, 184, 76, 0.8);
+        }
+    </style>
 </head>
 
 <body>
 
 <video id="bgVideo" autoplay muted loop></video>
 
-<!-- ELEMENTUL AUDIO INTEGRAT -->
 <audio id="bgMusic" loop>
-  <source src="https://raw.githubusercontent.com/cetancesti/atestat/main/World%20of%20Tanks%20Cinematic%20Trailer%20(2016%20-%200.9.15).mp3" type="audio/mpeg">
+    <source src="https://raw.githubusercontent.com/cetancesti/atestat/main/World%20of%20Tanks%20Cinematic%20Trailer%20(2016%20-%200.9.15).mp3" type="audio/mpeg">
 </audio>
-  <!-- Setează volumul imediat ce elementul este creat -->
+
 <script>
-  document.getElementById("bgMusic").volume = 0.5;
+    document.getElementById("bgMusic").volume = 0.5;
 </script>
 
 <div class="overlay"></div>
 
 <div class="container">
 
-<div id="home">
-  <h1>CE TANC EȘTI</h1>
-  <button onclick="start()">START</button>
-  <div class="credits" style="color: rgba(255,255,255,0.4); margin-top:20px; font-size:14px;">
-    Făcut de: Zamfir David-Octavian și Garai Ernest Andrei<br>
-    Socials:
-  </div>
-  
-  <div class="profiles">
-    <a href="https://www.instagram.com/delfyynnu?igsh=MXd3eW40N2ZhOXp2bw==" target="_blank" class="profile">
-      <img src="https://cdn.discordapp.com/attachments/1228208425964666943/1500127601295884408/652090051_18097121318481922_1885959846101382165_n.png?ex=69f74e33&is=69f5fcb3&hm=fbc1f67286d18623dc199a169c7fe603d86856f7af25ec0565aecb89b17a6f56&">
-    </a>
+    <!-- HOME SECTION -->
+    <div id="home">
+        <h1>CE TANC EȘTI</h1>
+        <button onclick="start()">START</button>
+        <div class="credits" style="color: rgba(255,255,255,0.4); margin-top:20px; font-size:14px;">
+            Făcut de: Zamfir David-Octavian și Garai Ernest Andrei<br>
+            Socials:
+        </div>
+        
+        <div class="profiles">
+            <a href="https://www.instagram.com/delfyynnu?igsh=MXd3eW40N2ZhOXp2bw==" target="_blank" class="profile">
+                <img src="https://cdn.discordapp.com/attachments/1228208425964666943/1500127601295884408/652090051_18097121318481922_1885959846101382165_n.png?ex=69f74e33&is=69f5fcb3&hm=fbc1f67286d18623dc199a169c7fe603d86856f7af25ec0565aecb89b17a6f56&">
+            </a>
 
-    <a href="https://www.instagram.com/andrei.ernest.7577?igsh=bjNna3QzZnNrZWQy" target="_blank" class="profile">
-      <img src="https://cdn.discordapp.com/attachments/1228208425964666943/1500127549601091746/643025249_18324926620222835_7099269219986849655_n.png?ex=69f74e26&is=69f5fca6&hm=a0188cf154077495d9ef0dfe2c7f887c6bea2f17fa8acf545dcbad7e9927b7ae&">
-    </a>
-  </div>
-</div>
+            <a href="https://www.instagram.com/andrei.ernest.7577?igsh=bjNna3QzZnNrZWQy" target="_blank" class="profile">
+                <img src="https://cdn.discordapp.com/attachments/1228208425964666943/1500127549601091746/643025249_18324926620222835_7099269219986849655_n.png?ex=69f74e26&is=69f5fca6&hm=a0188cf154077495d9ef0dfe2c7f887c6bea2f17fa8acf545dcbad7e9927b7ae&">
+            </a>
+        </div>
+    </div>
 
-<div id="quiz" class="hidden">
-  <div class="barWrap"><div id="bar" class="bar"></div></div>
-  <h2 id="q"></h2>
-  <div id="a"></div>
-</div>
+    <!-- QUIZ SECTION -->
+    <div id="quiz" class="hidden">
+        <div class="barWrap"><div id="bar" class="bar"></div></div>
+        <h2 id="q" style="min-height: 80px;"></h2>
+        <div id="a"></div>
+    </div>
 
-<div id="result" class="hidden">
-  <div class="card">
-    <div class="small">TANCUL TĂU ESTE:</div>
-    <div id="name" class="title"></div>
-    <div id="desc" class="quote"></div>
-    <div id="country" class="country"></div>
-    <img id="img" style="width:100%;border-radius:12px;margin-top:15px;">
-    <div id="longDesc" class="long-text"></div>
-  </div>
-  <button onclick="restart()">Refă testul</button>
-</div>
+    <!-- RESULT SECTION -->
+    <div id="result" class="hidden">
+        <div class="card">
+            <div class="small">TANCUL TĂU ESTE:</div>
+            <div id="name" class="title"></div>
+            <div id="desc" class="quote"></div>
+            <div id="country" class="country"></div>
+            <img id="img" style="width:100%; border-radius:12px; margin-top:15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+            <div id="longDesc" class="long-text"></div>
+        </div>
+        <button onclick="restart()">Refă testul</button>
+    </div>
 
 </div>
 
 <script>
-let i=0;
-let score=[];
+    let i = 0;
+    // Am schimbat score în obiect pentru a număra exact câte răspunsuri de fiecare tip ai
+    let counts = { A: 0, S: 0, M: 0, D: 0 };
 
-const values={A:4,S:3,M:2,D:1};
+    const q = [
+        {q:"Într-un conflict, cum procedezi?",a:[["Direct- Nu stau la discuții, aplanez conflictul în modul meu.","A"],["Strategic- Mă gândesc de două ori înainte să acționez. ","S"],["Rapid- încerc să diminuez conflictul cât mai rapid, chiar dacă nu este cea mai bună alegere.","M"],["Defensiv- îmi apăr punctul de vedere chiar dacă nu am dreptate în totalitate.","D"]]},
+        {q:"Care este stilul tău?",a:[["Brutal- dacă este nevoie folosesc forța brută pentru a duce un task la capăt.","A"],["Inteligent- stau și mă gândesc la o metodă eficientă de a rezolva o problemă. ","S"],["Rapid- vreau să scap de problemă cât mai repede, fără să depun prea mult efort.","M"],["Rezistent- apreciez o provocare și vreau să găsesc cea mai eficientă metodă, chiar dacă durează mai mult timp.","D"]]},
+        {q:"Într-o echipă, tu ai rolul de:",a:[["Manager, dai ordine subalternilor tăi, ei fiind fideli și ascultând de tine.","A"],["Planificator, stai și analizezi totul și găsești problemele echipei pe care le raportezi șefului tău. ","S"],["Analizator, ții cont de tot ce se întâmplă în jurul tău dar și în companie.","M"],["Angajat, urmezi instrucțiunile așa cum îți sunt date fără a analiza prea mult.","D"]]},
+        {q:"Cum acționezi sub presiune?",a:[["Devin agresiv și agitat, nu reușesc să fac față stresului.","A"],["Analizez și găsesc o metodă de a face situația mai relaxată.","S"],["Evit situația stresantă, fără a avea un contact direct cu aceasta.","M"],["Îndur situația până se ajunge la deznodământ.","D"]]},
+        {q:"Cum reacționezi la un succes?",a:[["Mă bucur de el, până apare o provocare nouă.","A"],["Apreciez că am dus o misiune la capăt și rămân precaut pentru următoarea provocare. ","S"],["Mă delectez cu o recompensă, deoarece am muncit mult pentru acest succes.","M"],["Apreciez reușita dar nu renunț la starea indusă de proiectul dus la sfârșit.","D"]]},
+        {q:"Ce te caracterizează cel mai bine dintre următoarele:",a:[["Puterea","A"],["Inteligența","S"],["Viteza","M"],["Rezistența","D"]]},
+        {q:"Cum reacționezi când te afli într-o situație periculoasă?",a:[["Contraatac, pentru a combate situația în care sunt expus.","A"],["Planific următoarea mișcare a mea.","S"],["Evit situația","M"],["Rezist până când se va termina.","D"]]},
+        {q:"Cum îți abordezi obiectivele pe termen lung?",a:[["Forțez lucrurile să se întâmple rapid.","A"] , ["Îmi fac un plan clar și îl urmez.","S"] , ["Mă adaptez din mers în funcție de situație.","M"] , ["Avansez lent, dar sigur.","D"]]},
+        {q:"Cum reacționezi după un eșec major?",a:[["Încerc imediat din nou, mai agresiv.","A"] , ["Analizez ce a mers greșit.","S"] , ["Schimb rapid abordarea.","M"] , ["Îmi iau timp să mă refac și continui.","D"]]}
+    ];
 
-const q=[
-{q:"Într-un conflict, cum procedezi?",a:[["Direct- Nu stau la discuții, aplanez conflictul în modul meu.","A"],["Strategic- Mă gândesc de două ori înainte să acționez. ","S"],["Rapid- încerc să diminuez conflictul cât mai rapid, chiar dacă nu este cea mai bună alegere.","M"],["Defensiv- îmi apăr punctul de vedere chiar dacă nu am dreptate în totalitate.","D"]]},
-{q:"Care este stilul tău?",a:[["Brutal- dacă este nevoie folosesc forța brută pentru a duce un task la capăt.","A"],["Inteligent- stau și mă gândesc la o metodă eficientă de a rezolva o problemă. ","S"],["Rapid- vreau să scap de problemă cât mai repede, fără să depun prea mult efort.","M"],["Rezistent- apreciez o provocare și vreau să găsesc cea mai eficientă metodă, chiar dacă durează mai mult timp.","D"]]},
-{q:"Într-o echipă, tu ai rolul de:",a:[["Manager, dai ordine subalternilor tăi, ei fiind fideli și ascultând de tine.","A"],["Planificator, stai și analizezi totul și găsești problemele echipei pe care le raportezi șefului tău. ","S"],["Analizator, ții cont de tot ce se întâmplă în jurul tău dar și în companie.","M"],["Angajat, urmezi instrucțiunile așa cum îți sunt date fără a analiza prea mult.","D"]]},
-{q:"Cum acționezi sub presiune?",a:[["Devin agresiv și agitat, nu reușesc să fac față stresului.","A"],["Analizez și găsesc o metodă de a face situația mai relaxată.","S"],["Evit situația stresantă, fără a avea un contact direct cu aceasta.","M"],["Îndur situația până se ajunge la deznodământ.","D"]]},
-{q:"Cum reacționezi la un succes?",a:[["Mă bucur de el, până apare o provocare nouă.","A"],["Apreciez că am dus o misiune la capăt și rămân precaut pentru următoarea provocare. ","S"],["Mă delectez cu o recompensă, deoarece am muncit mult pentru acest succes.","M"],["Apreciez reușita dar nu renunț la starea indusă de proiectul dus la sfârșit.","D"]]},
-{q:"Ce te caracterizează cel mai bine dintre următoarele:",a:[["Puterea","A"],["Inteligența","S"],["Viteza","M"],["Rezistența","D"]]},
-{q:"Cum reacționezi când te afli într-o situație periculoasă?",a:[["Contraatac, pentru a combate situația în care sunt expus.","A"],["Planific următoarea mișcare a mea.","S"],["Evit situația","M"],["Rezist până când se va termina.","D"]]},
-{q:"Cum îți abordezi obiectivele pe termen lung?",a:[["Forțez lucrurile să se întâmple rapid.","A"] , ["Îmi fac un plan clar și îl urmez.","S"] , ["Mă adaptez din mers în funcție de situație.","M"] , ["Avansez lent, dar sigur.","D"]]},
-{q:"Cum reacționezi după un eșec major?",a:[["Încerc imediat din nou, mai agresiv.","A"] , ["Analizez ce a mers greșit.","S"] , ["Schimb rapid abordarea.","M"] , ["Îmi iau timp să mă refac și continui.","D"]]}
-];
+    const tanks = [
+        ["T-90","Rusia","Moarte modernă.","S","https://media.discordapp.net/attachments/1228208425964666943/1500087858424320130/2013_Moscow_Victory_Day_Parade_28.jpg?ex=69f7292f&is=69f5d7af&hm=fe268803bc69fe8f0725e117dc634dc72e18087167880d3e7235c4680579b631&=&format=webp&width=748&height=483","Tanc principal de luptă rusesc, intrat în serviciu în anii 1990, reprezentând o evoluție a seriei T-72. Este cunoscut pentru combinația dintre mobilitate, protecție și cost relativ redus, fiind echipat cu blindaj reactiv exploziv, sisteme moderne de ochire și protecție activă precum „Shtora”"],
+        ["Tiger I","Germania","Bestie brută a frontului.","A","https://media.discordapp.net/attachments/1228208425964666943/1500087857849696296/Tiger_131_7527948486.jpg?ex=69f7292f&is=69f5d7af&hm=29053ee4a5d164f8685be471aff21509690ddf64a1cc4af9244df5af695ca0b4&=&format=webp&width=748&height=510","Tanc greu german din timpul celui de-al Doilea Război Mondial, introdus în 1942 și renumit pentru puterea sa de foc și blindajul foarte gros pentru acea perioadă. Era echipat cu tunul de 88 mm extrem de eficient și a dominat câmpul de luptă la început, însă era costisitor, greu de produs și predispus la probleme mecanice."],
+        ["Leopard 2A5","Germania","Echilibru perfect.","S","https://media.discordapp.net/attachments/1228208425964666943/1500087858797744178/Leopard_2_A5_der_Bundeswehr.jpg?ex=69f7292f&is=69f5d7af&hm=3b4c72398d2bde62c7ab3aa56bf8e283b1d3e7d077b29aa5c7139e109900eefc&=&format=webp&width=748&height=501","Variantă modernizată a tancului german Leopard 2, introdusă în anii 1990, cu îmbunătățiri semnificative în protecție și sisteme electronice. Se remarcă prin blindajul suplimentar frontal în formă de pană, tunul performant de 120 mm și sistemele avansate de control al focului, acesta fiind utilizat de numeroase armate NATO."],
+        ["Abrams M1A2","USA","Dominanță totală.","A","https://media.discordapp.net/attachments/1228208425964666943/1500087859254788226/M1A2_SEP_v3.jpg?ex=69f7292f&is=69f5d7af&hm=0b217383e7f39eeb9ee015d9e648032e0d57f4da5110557c8ec8c9c17ca3386d&=&format=webp&width=748&height=421","Tanc principal de luptă american, intrat în serviciu în anii 1980 și modernizat în 2017 (modelul SEPv3) cu tehnologii de ultimă generație. Este cunoscut pentru blindajul compozit avansat, sistemele moderne de control al focului, utilizarea unui motor cu turbină și sistemele moderne de apărare precum „Thropy System”."],
+        ["AMX-56 Leclerc","Franța","Rapid și precis.","M","https://media.discordapp.net/attachments/1228208425964666943/1500087859531481189/leclerctank.jpeg?ex=69f7292f&is=69f5d7af&hm=04cdf2600a7e3d4a65c0e96e0f640d135178a87c144caa8fdc08762a9582b354&=&format=webp&width=748&height=374","Tanc principal de luptă francez, intrat în serviciu în anii 1990, considerat unul dintre cele mai avansate din punct de vedere tehnologic. Dispune de un sistem automat de încărcare, echipamente electronice moderne și o mobilitate ridicată, fiind proiectat pentru eficiență și echipaj redus"],
+        ["Challenger 2","UK","Fortăreață.","D","https://media.discordapp.net/attachments/1228208425964666943/1500087860127334560/Challenger-2-Main-Battle-Tank-1024x684.jpg?ex=69f72930&is=69f5d7b0&hm=642751768519d5c447b72a9b5f1a1f4cfce43e28d9c2e4d4e7ad61a0b9d867c1&=&format=webp&width=748&height=500","Tanc principal de luptă britanic, introdus în anii 1990, cunoscut pentru blindajul său extrem de rezistent de tip Chobham/Dorchester. Este echipat cu un tun de 120 mm cu țeavă ghintuită și sisteme moderne de protecție, fiind apreciat pentru durabilitate și performanță în luptă."]
+    ];
 
-const tanks=[
-["T-90","Rusia","Moarte modernă.","S","https://media.discordapp.net/attachments/1228208425964666943/1500087858424320130/2013_Moscow_Victory_Day_Parade_28.jpg?ex=69f7292f&is=69f5d7af&hm=fe268803bc69fe8f0725e117dc634dc72e18087167880d3e7235c4680579b631&=&format=webp&width=748&height=483","Tanc principal de luptă rusesc, intrat în serviciu în anii 1990, reprezentând o evoluție a seriei T-72. Este cunoscut pentru combinația dintre mobilitate, protecție și cost relativ redus, fiind echipat cu blindaj reactiv exploziv, sisteme moderne de ochire și protecție activă precum „Shtora”"],
-["Tiger I","Germania","Bestie brută a frontului.","A","https://media.discordapp.net/attachments/1228208425964666943/1500087857849696296/Tiger_131_7527948486.jpg?ex=69f7292f&is=69f5d7af&hm=29053ee4a5d164f8685be471aff21509690ddf64a1cc4af9244df5af695ca0b4&=&format=webp&width=748&height=510","Tanc greu german din timpul celui de-al Doilea Război Mondial, introdus în 1942 și renumit pentru puterea sa de foc și blindajul foarte gros pentru acea perioadă. Era echipat cu tunul de 88 mm extrem de eficient și a dominat câmpul de luptă la început, însă era costisitor, greu de produs și predispus la probleme mecanice."],
-["Leopard 2A5","Germania","Echilibru perfect.","S","https://media.discordapp.net/attachments/1228208425964666943/1500087858797744178/Leopard_2_A5_der_Bundeswehr.jpg?ex=69f7292f&is=69f5d7af&hm=3b4c72398d2bde62c7ab3aa56bf8e283b1d3e7d077b29aa5c7139e109900eefc&=&format=webp&width=748&height=501","Variantă modernizată a tancului german Leopard 2, introdusă în anii 1990, cu îmbunătățiri semnificative în protecție și sisteme electronice. Se remarcă prin blindajul suplimentar frontal în formă de pană, tunul performant de 120 mm și sistemele avansate de control al focului, acesta fiind utilizat de numeroase armate NATO."],
-["Abrams M1A2","USA","Dominanță totală.","A","https://media.discordapp.net/attachments/1228208425964666943/1500087859254788226/M1A2_SEP_v3.jpg?ex=69f7292f&is=69f5d7af&hm=0b217383e7f39eeb9ee015d9e648032e0d57f4da5110557c8ec8c9c17ca3386d&=&format=webp&width=748&height=421","Tanc principal de luptă american, intrat în serviciu în anii 1980 și modernizat în 2017 (modelul SEPv3) cu tehnologii de ultimă generație. Este cunoscut pentru blindajul compozit avansat, sistemele moderne de control al focului, utilizarea unui motor cu turbină și sistemele moderne de apărare precum „Thropy System”."],
-["AMX-56 Leclerc","Franța","Rapid și precis.","M","https://media.discordapp.net/attachments/1228208425964666943/1500087859531481189/leclerctank.jpeg?ex=69f7292f&is=69f5d7af&hm=04cdf2600a7e3d4a65c0e96e0f640d135178a87c144caa8fdc08762a9582b354&=&format=webp&width=748&height=374","Tanc principal de luptă francez, intrat în serviciu în anii 1990, considerat unul dintre cele mai avansate din punct de vedere tehnologic. Dispune de un sistem automat de încărcare, echipamente electronice moderne și o mobilitate ridicată, fiind proiectat pentru eficiență și echipaj redus"],
-["Challenger 2","UK","Fortăreață.","D","https://media.discordapp.net/attachments/1228208425964666943/1500087860127334560/Challenger-2-Main-Battle-Tank-1024x684.jpg?ex=69f72930&is=69f5d7b0&hm=642751768519d5c447b72a9b5f1a1f4cfce43e28d9c2e4d4e7ad61a0b9d867c1&=&format=webp&width=748&height=500","Tanc principal de luptă britanic, introdus în anii 1990, cunoscut pentru blindajul său extrem de rezistent de tip Chobham/Dorchester. Este echipat cu un tun de 120 mm cu țeavă ghintuită și sisteme moderne de protecție, fiind apreciat pentru durabilitate și performanță în luptă."]
-];
+    function start(){
+        let music = document.getElementById("bgMusic");
+        music.volume = 0.2;
+        music.play().catch(e => console.log("Audio a fost blocat."));
 
-/* FUNCȚIA START ACTUALIZATĂ CU AUDIO */
-function start(){
-    // Pornim muzica
-    let music = document.getElementById("bgMusic");
-    music.volume = 0.1; // Volum la 50%
-    music.play().catch(e => console.log("Audio a fost blocat de browser."));
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("quiz").classList.remove("hidden");
+        next();
+    }
 
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("quiz").classList.remove("hidden");
-    next();
-}
+    function next(){
+        if(i >= q.length){ return finish(); }
+        
+        window.scrollTo(0, 0); // Resetăm scroll-ul la fiecare întrebare
+        document.getElementById("q").innerText = q[i].q;
+        let a = document.getElementById("a");
+        a.innerHTML = "";
+        
+        q[i].a.forEach(x => {
+            let b = document.createElement("button");
+            b.innerText = x[0];
+            b.onclick = () => pick(x[1]);
+            a.appendChild(b);
+        });
+        
+        document.getElementById("bar").style.width = (i / q.length) * 100 + "%";
+    }
 
-function next(){
-if(i>=q.length){return finish();}
-document.getElementById("q").innerText=q[i].q;
-let a=document.getElementById("a");
-a.innerHTML="";
-q[i].a.forEach(x=>{
-let b=document.createElement("button");
-b.innerText=x[0];
-b.onclick=()=>pick(x[1]);
-a.appendChild(b);
-});
-document.getElementById("bar").style.width=(i/q.length)*100+"%";
-}
+    function pick(t){
+        counts[t]++; // Incrementăm scorul pentru tipul ales (A, S, M sau D)
+        i++;
+        next();
+    }
 
-function pick(t){
-score.push(values[t]);
-i++;
-next();
-}
+    function finish(){
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("result").classList.remove("hidden");
+        window.scrollTo(0, 0);
 
-function finish(){
-document.getElementById("quiz").classList.add("hidden");
-document.getElementById("result").classList.remove("hidden");
-let sum=score.reduce((a,b)=>a+b,0);
-let avg=sum/score.length;
-let type;
-if(avg>=3.5) type="A";
-else if(avg>=2.5) type="S";
-else if(avg>=1.5) type="M";
-else type="D";
-let list=tanks.filter(t=>t[3]==type);
-let t=list[Math.floor(Math.random()*list.length)];
-document.getElementById("name").innerText=t[0]+" — "+t[1].toUpperCase();
-document.getElementById("desc").innerText="„"+t[2]+"”";
-document.getElementById("country").innerText="Țara de origine: "+t[1];
-document.getElementById("img").src=t[4];
-document.getElementById("longDesc").innerText=t[5];
-}
+        // Determinăm tipul câștigător (cel cu cele mai multe voturi)
+        let winnerType = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+        
+        // Filtrăm tancurile după tipul câștigător
+        let list = tanks.filter(t => t[3] == winnerType);
+        
+        // Alegem un tanc la întâmplare din lista filtrată
+        let t = list[Math.floor(Math.random() * list.length)];
+        
+        document.getElementById("name").innerText = t[0] + " — " + t[1].toUpperCase();
+        document.getElementById("desc").innerText = "„" + t[2] + "”";
+        document.getElementById("country").innerText = "Țara de origine: " + t[1];
+        document.getElementById("img").src = t[4];
+        document.getElementById("longDesc").innerText = t[5];
+    }
 
-function restart(){
-i=0;
-score=[];
-document.getElementById("result").classList.add("hidden");
-document.getElementById("home").classList.remove("hidden");
-}
+    function restart(){
+        i = 0;
+        counts = { A: 0, S: 0, M: 0, D: 0 }; // Resetare completă a obiectului de scor
+        document.getElementById("result").classList.add("hidden");
+        document.getElementById("home").classList.remove("hidden");
+        window.scrollTo(0, 0);
+    }
 
-/* PARTICULE */
-for(let j=0;j<30;j++){
-let p=document.createElement("div");
-p.className="p";
-p.style.left=Math.random()*100+"vw";
-p.style.animationDuration=(5+Math.random()*10)+"s";
-document.body.appendChild(p);
-}
+    /* PARTICULE FUNDAL */
+    for(let j=0; j<30; j++){
+        let p = document.createElement("div");
+        p.className = "p";
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = (5 + Math.random() * 10) + "s";
+        document.body.appendChild(p);
+    }
 
-/* VIDEO BACKGROUND */
-document.getElementById("bgVideo").src="https://cdn.discordapp.com/attachments/1228208425964666943/1500149369956208830/Andrius_Klimka_and_Andrey_Kulik_Login_Screen_OST_World_Of_Tanks_Wargaming_net___HD.mp4?ex=69f76279&is=69f610f9&hm=f6a530bd6cbd2f55d9821f09a493d078f5a2c4a6a02994aa2ea38d34f4bac5e1&";
+    /* VIDEO BACKGROUND */
+    document.getElementById("bgVideo").src = "https://cdn.discordapp.com/attachments/1228208425964666943/1500149369956208830/Andrius_Klimka_and_Andrey_Kulik_Login_Screen_OST_World_Of_Tanks_Wargaming_net___HD.mp4?ex=69f76279&is=69f610f9&hm=f6a530bd6cbd2f55d9821f09a493d078f5a2c4a6a02994aa2ea38d34f4bac5e1&";
 </script>
 
 </body>
