@@ -26,10 +26,6 @@ opacity:0.25;
 z-index:-3;
 filter:contrast(1.3) brightness(0.6);
 }
-  <audio id="bgMusic" loop>
-  <source src="https://raw.githubusercontent.com/cetancesti/atestat/main/World%20of%20Tanks%20Cinematic%20Trailer%20(2016%20-%200.9.15).mp3" type="audio/mpeg">
-</audio>
-<div class="overlay"></div>
 
 .overlay{
 position:fixed;
@@ -138,7 +134,6 @@ font-size:12px;
 text-transform:uppercase;
 }
 
-/* NOU */
 .long-text{
 margin-top:20px;
 font-size:16px;
@@ -152,26 +147,7 @@ padding-top:15px;
 color:rgba(255,255,255,0.75);
 text-shadow:0 0 10px rgba(0,0,0,0.6);
 }
-/* BUTOANE */
-button{
-width:100%;
-padding:14px;
-margin-top:10px;
-border-radius:12px;
-border:1px solid rgba(255,255,255,0.1);
-background:rgba(255,255,255,0.05);
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
 
-button:hover{
-background:#e0b84c;
-color:black;
-transform:scale(1.02);
-}
-
-/* PROFILURI INSTAGRAM */
 .profiles{
 display:flex;
 justify-content:center;
@@ -199,78 +175,18 @@ transform:scale(1.15);
 border-color:#e0b84c;
 box-shadow:0 0 25px rgba(224,184,76,0.8);
 }
-
-.hidden{display:none;}
-
-/* PROGRESS BAR */
-.barWrap{
-height:6px;
-background:#222;
-border-radius:10px;
-overflow:hidden;
-margin-bottom:20px;
-}
-.bar{
-height:100%;
-background:#e0b84c;
-width:0%;
-transition:0.3s;
-}
-
-/* RESULT */
-.card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-padding:20px;
-border-radius:16px;
-backdrop-filter:blur(12px);
-}
-
-.small{
-letter-spacing:0.3em;
-font-size:12px;
-color:#e0b84c;
-text-transform:uppercase;
-margin-bottom:10px;
-}
-
-.title{
-font-family:Oswald;
-font-size:42px;
-text-transform:uppercase;
-margin:10px 0;
-}
-
-.quote{
-font-style:italic;
-opacity:0.8;
-margin-bottom:10px;
-}
-
-.country{
-opacity:0.5;
-letter-spacing:0.2em;
-font-size:12px;
-text-transform:uppercase;
-}
-
-.long-text{
-margin-top:20px;
-font-size:16px;
-line-height:1.7;
-opacity:0.6;
-max-width:600px;
-margin:auto;
-border-top:1px solid rgba(255,255,255,0.08);
-padding-top:15px;
-}
-
 </style>
 </head>
 
 <body>
 
 <video id="bgVideo" autoplay muted loop></video>
+
+<!-- ELEMENTUL AUDIO INTEGRAT -->
+<audio id="bgMusic" loop>
+  <source src="https://raw.githubusercontent.com/cetancesti/atestat/main/World%20of%20Tanks%20Cinematic%20Trailer%20(2016%20-%200.9.15).mp3" type="audio/mpeg">
+</audio>
+
 <div class="overlay"></div>
 
 <div class="container">
@@ -278,14 +194,12 @@ padding-top:15px;
 <div id="home">
   <h1>CE TANC EȘTI</h1>
   <button onclick="start()">START</button>
-<div class="credits" style="color: rgba(255,255,255,0.4); margin-top:20px; font-size:14px;">
-  Făcut de: Zamfir David-Octavian și Garai Ernest Andrei<br>
-  Socials:
-</div>
- 
-    <!-- PROFILURI -->
+  <div class="credits" style="color: rgba(255,255,255,0.4); margin-top:20px; font-size:14px;">
+    Făcut de: Zamfir David-Octavian și Garai Ernest Andrei<br>
+    Socials:
+  </div>
+  
   <div class="profiles">
-
     <a href="https://www.instagram.com/delfyynnu?igsh=MXd3eW40N2ZhOXp2bw==" target="_blank" class="profile">
       <img src="https://cdn.discordapp.com/attachments/1228208425964666943/1500127601295884408/652090051_18097121318481922_1885959846101382165_n.png?ex=69f74e33&is=69f5fcb3&hm=fbc1f67286d18623dc199a169c7fe603d86856f7af25ec0565aecb89b17a6f56&">
     </a>
@@ -293,7 +207,6 @@ padding-top:15px;
     <a href="https://www.instagram.com/andrei.ernest.7577?igsh=bjNna3QzZnNrZWQy" target="_blank" class="profile">
       <img src="https://cdn.discordapp.com/attachments/1228208425964666943/1500127549601091746/643025249_18324926620222835_7099269219986849655_n.png?ex=69f74e26&is=69f5fca6&hm=a0188cf154077495d9ef0dfe2c7f887c6bea2f17fa8acf545dcbad7e9927b7ae&">
     </a>
-
   </div>
 </div>
 
@@ -310,24 +223,18 @@ padding-top:15px;
     <div id="desc" class="quote"></div>
     <div id="country" class="country"></div>
     <img id="img" style="width:100%;border-radius:12px;margin-top:15px;">
-
     <div id="longDesc" class="long-text"></div>
   </div>
-
   <button onclick="restart()">Refă testul</button>
 </div>
 
 </div>
 
 <script>
-
-/* DATA */
 let i=0;
 let score=[];
 
-const values={
-A:4,S:3,M:2,D:1
-};
+const values={A:4,S:3,M:2,D:1};
 
 const q=[
 {q:"Într-un conflict, cum procedezi?",a:[["Direct- Nu stau la discuții, aplanez conflictul în modul meu.","A"],["Strategic- Mă gândesc de două ori înainte să acționez. ","S"],["Rapid- încerc să diminuez conflictul cât mai rapid, chiar dacă nu este cea mai bună alegere.","M"],["Defensiv- îmi apăr punctul de vedere chiar dacă nu am dreptate în totalitate.","D"]]},
@@ -341,7 +248,6 @@ const q=[
 {q:"Cum reacționezi după un eșec major?",a:[["Încerc imediat din nou, mai agresiv.","A"] , ["Analizez ce a mers greșit.","S"] , ["Schimb rapid abordarea.","M"] , ["Îmi iau timp să mă refac și continui.","D"]]}
 ];
 
-/* MODIFICAT: + descriere lungă */
 const tanks=[
 ["Tiger I","Germania","Bestie brută a frontului.","A","https://media.discordapp.net/attachments/1228208425964666943/1500087857849696296/Tiger_131_7527948486.jpg?ex=69f7292f&is=69f5d7af&hm=29053ee4a5d164f8685be471aff21509690ddf64a1cc4af9244df5af695ca0b4&=&format=webp&width=748&height=510","Tanc greu german din Al Doilea Război Mondial, cunoscut pentru blindajul său puternic și tunul de 88 mm. A fost unul dintre cele mai temute vehicule ale epocii, deși era costisitor și dificil de întreținut."],
 ["T-90","Rusia","Moarte modernă.","S","https://media.discordapp.net/attachments/1228208425964666943/1500087858424320130/2013_Moscow_Victory_Day_Parade_28.jpg?ex=69f7292f&is=69f5d7af&hm=fe268803bc69fe8f0725e117dc634dc72e18087167880d3e7235c4680579b631&=&format=webp&width=748&height=483","Tanc principal de luptă rusesc modern, dezvoltat pe baza modelelor sovietice anterioare. Este echipat cu sisteme avansate de protecție și armament performant, fiind utilizat în mai multe conflicte contemporane."],
@@ -351,66 +257,57 @@ const tanks=[
 ["Challenger 2","UK","Fortăreață.","D","https://media.discordapp.net/attachments/1228208425964666943/1500087860127334560/Challenger-2-Main-Battle-Tank-1024x684.jpg?ex=69f72930&is=69f5d7b0&hm=642751768519d5c447b72a9b5f1a1f4cfce43e28d9c2e4d4e7ad61a0b9d867c1&=&format=webp&width=748&height=500","Tanc principal de luptă britanic, intrat în serviciu în anii 1990. Este recunoscut pentru blindajul său excepțional și pentru performanțele solide în operațiuni militare."]
 ];
 
-/* START */
+/* FUNCȚIA START ACTUALIZATĂ CU AUDIO */
 function start(){
-document.getElementById("home").classList.add("hidden");
-document.getElementById("quiz").classList.remove("hidden");
-next();
+    // Pornim muzica
+    let music = document.getElementById("bgMusic");
+    music.volume = 0.5; // Volum la 50%
+    music.play().catch(e => console.log("Audio a fost blocat de browser."));
+
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("quiz").classList.remove("hidden");
+    next();
 }
 
-/* QUESTION */
 function next(){
 if(i>=q.length){return finish();}
-
 document.getElementById("q").innerText=q[i].q;
-
 let a=document.getElementById("a");
 a.innerHTML="";
-
 q[i].a.forEach(x=>{
 let b=document.createElement("button");
 b.innerText=x[0];
 b.onclick=()=>pick(x[1]);
 a.appendChild(b);
 });
-
 document.getElementById("bar").style.width=(i/q.length)*100+"%";
 }
 
-/* PICK */
 function pick(t){
 score.push(values[t]);
 i++;
 next();
 }
 
-/* RESULT */
 function finish(){
 document.getElementById("quiz").classList.add("hidden");
 document.getElementById("result").classList.remove("hidden");
-
 let sum=score.reduce((a,b)=>a+b,0);
 let avg=sum/score.length;
-
 let type;
 if(avg>=3.5) type="A";
 else if(avg>=2.5) type="S";
 else if(avg>=1.5) type="M";
 else type="D";
-
 let list=tanks.filter(t=>t[3]==type);
 let t=list[Math.floor(Math.random()*list.length)];
-
 document.getElementById("name").innerText=t[0]+" — "+t[1].toUpperCase();
 document.getElementById("desc").innerText="„"+t[2]+"”";
 document.getElementById("country").innerText="Țara de origine: "+t[1];
 document.getElementById("img").src=t[4];
-
-/* TEXT SUB BUTON */
 document.getElementById("longDesc").innerText=t[5];
 }
 
-/* RESTART */
 function restart(){
 i=0;
 score=[];
@@ -427,9 +324,8 @@ p.style.animationDuration=(5+Math.random()*10)+"s";
 document.body.appendChild(p);
 }
 
-/* VIDEO */
+/* VIDEO BACKGROUND */
 document.getElementById("bgVideo").src="https://cdn.discordapp.com/attachments/1228208425964666943/1500149369956208830/Andrius_Klimka_and_Andrey_Kulik_Login_Screen_OST_World_Of_Tanks_Wargaming_net___HD.mp4?ex=69f76279&is=69f610f9&hm=f6a530bd6cbd2f55d9821f09a493d078f5a2c4a6a02994aa2ea38d34f4bac5e1&";
-
 </script>
 
 </body>
